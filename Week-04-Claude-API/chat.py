@@ -20,9 +20,11 @@
 #    (ye sabse zaroori experiment hai - zaroor karna)
 #
 # Chalane ke liye:  python chat.py
-
+import sys
 import anthropic
 from dotenv import load_dotenv
+
+sys.stdout.reconfigure(encoding="utf-8")
 
 load_dotenv()
 
@@ -45,25 +47,26 @@ while True:
 
     # 1. User ka message history me daalo
     messages.append({"role": "user", "content": user_input})
+    print("Claude: ", end="", flush=True)        # ← with se PEHLE, ek baar
 
     # 2. POORI history bhejo
-    response = client.messages.create(
+    with client.messages.stream(
         model="claude-opus-5-5",
         max_tokens=1000,
         system="Tum ek dost jaise Python teacher ho. Hinglish me, chhote jawab do.",
         messages= messages
-    )
+    ) as stream:
+        for text in stream.text_stream:
+            print(text, end="", flush=True)      # ← TEXT, har tukde pe
 
-    # 3. Jawab print karo
-    for block in response.content:
-        if block.type == "text":
-            print("Claude:", block.text)
+        response = stream.get_final_message()
+    print()
 
+   
     # 4. Claude ka jawab bhi history me daalo
     #    DHYAN: response.content daalna hai, sirf text NAHI
     messages.append({"role": "assistant", "content": response.content})
 
-    # TODO: 
     print(response.usage.input_tokens)
     print(response.usage.output_tokens)
 

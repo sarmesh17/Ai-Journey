@@ -64,7 +64,18 @@
 - [x] chat.py - multi-turn conversation, history list, token growth
 - [x] tool_use.py - TOOL USE (get_current_time + add_number, do tool ek saath)
 - [x] **github_agent.py** - PEHLA ASLI AGENT (Week-03 ke functions + tool use)
-- [ ] agla: git/GitHub, ya streaming/caching
+- [x] **git + GitHub** - repo banaya, 2 commit, push ho gaya
+  - github.com/sarmesh17/Ai-Journey (private)
+- [x] **streaming.py + chat.py streaming** - jawab tukdon me, live
+- [ ] agla: chat history save/load, phir prompt caching
+
+**Streaming ke seekhe sabak:** `with client.messages.stream(...) as stream` (wahi `with` jo file me tha), `stream.text_stream` har tukda deta hai, `end=""` (warna har tukda nayi line) aur `flush=True` (warna output jama hota hai). `stream.get_final_message()` **loop ke baad** - tukdon ko jod kar wahi `response` object deta hai jo `create()` deta tha, isliye history wali line nahi badalti. Streaming jaldi/sasti nahi hai - sirf pehla shabd turant dikhta hai.
+
+**Teesra encoding niyam:** `sys.stdout.reconfigure(encoding="utf-8")` - AI ke jawab me arrow/emoji aate hai, Windows ka cp1252 unko chhaap nahi paata.
+
+**Git ke seekhe sabak:** `.gitignore` **pehle**, `git init` baad me (commit history se cheez hatana mushkil hai). `git status` folder band karke dikhata hai - `git status --porcelain -uall` se har file dikhti hai. `!.env.example` = apwaad (ye wali le lo). `git add -A` delete ko bhi pakadta hai. `git log --all --full-history -- "*.env"` se check karo ki secret kabhi gaya to nahi.
+
+**Natija:** repo 188 KB (91 MB venv bahar), `.env` kabhi commit nahi hui.
 
 **Agent banate waqt jo 7 galtiyan khud pakdi/theek ki:** `message=` (naam galat), `"roles"` (extra s), `user.get[...]` (`()` ki jagah `[]`), purana model, `n` hardcode (10), `tool_input["n"]` jabki `n` optional hai (`.get` chahiye), aur default do jagah likha (**DRY** - ek cheez ek hi jagah).
 
