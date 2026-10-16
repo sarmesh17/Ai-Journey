@@ -1,0 +1,28 @@
+# ============================================
+# KABHI COMMIT NAHI HONA CHAHIYE
+# ============================================
+
+# API keys aur secrets
+.env
+.env.local
+
+# ...par template jaana chahiye, taaki agle banda ko pata chale
+!.env.example
+
+# ============================================
+# BADE / DOBARA BAN JAANE WALE
+# ============================================
+
+# virtual environments (91 MB!) - requirements.txt se wapas ban jaate hai
+.venv/
+venv/
+
+# Python ka cache
+__pycache__/
+*.pyc
+
+# ============================================
+# PROGRAM KE BANAYE HUE OUTPUT
+# ============================================
+notes.txt
+chat.txt

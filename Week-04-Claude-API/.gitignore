@@ -1,0 +1,7 @@
+# SABSE ZAROORI - API key kabhi git me nahi jaani chahiye
+.env
+
+# venv bhi nahi
+.venv/
+__pycache__/
+*.pyc
